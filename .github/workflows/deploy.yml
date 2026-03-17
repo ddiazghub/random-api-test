@@ -39,6 +39,7 @@ jobs:
               git pull
             fi
 
+            sudo apt update
             sudo apt install --upgrade nodejs npm -y
             cd ~/my-app
             npm install
