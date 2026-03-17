@@ -44,5 +44,5 @@ jobs:
             cd ~/my-app
             npm install
             npm run build || true
-            npm run kill || true
-            npm start
+            npm run kill
+            npm start &
