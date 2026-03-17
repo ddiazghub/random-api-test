@@ -29,7 +29,7 @@ jobs:
             sudo apt update
             sudo apt install --upgrade nodejs npm -y
             cd ~/my-app
-            npm install
+            npm ci
             npm run build || true
             npm run kill
             npm start &
