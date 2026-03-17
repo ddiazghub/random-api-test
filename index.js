@@ -17,4 +17,6 @@ app.get("/random/int", (req, res) => {
   res.status(200).send(crypto.randomInt(Number.MAX_SAFE_INTEGER));
 });
 
-app.listen(PORT, () => console.log("Server started on port:", PORT));
+app.listen(process.env.PORT ?? 3000, () =>
+  console.log("Server started on port:", PORT),
+);
