@@ -6,7 +6,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: alpine:3.23
+    runs-on: ubuntu-latest
 
     steps:
       # Los siguientes pasos se ejecutan en el entorno de github actions
