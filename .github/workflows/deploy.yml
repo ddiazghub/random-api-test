@@ -9,21 +9,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Los siguientes pasos se ejecutan en el entorno de github actions
-      - name: Checkout code
-        uses: actions/checkout@v6
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v6
-        with:
-          node-version: 24
-
-      - name: Install dependencies
-        run: |
-          npm install
-
       - name: Deploy to EC2
-        uses: appleboy/ssh-action@v1 # Esta action establece una conexion con la instancia EC2 y nos permite controlar la consola
+        uses: appleboy/ssh-action@v1
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USERNAME }}
