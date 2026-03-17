@@ -1,6 +1,6 @@
 # random-api-test
 
-API which returns random values
+Simple test repository for a random API project.
 
 ## Team
 - Alice
