@@ -26,8 +26,18 @@ jobs:
               git pull
             fi
 
-            sudo apt update
-            sudo apt install --upgrade nodejs npm -y
+            ########################################
+            #             UBUNTU/DEBIAN            #
+            ########################################
+            # sudo apt update
+            # sudo apt install --upgrade nodejs npm -y
+
+            ########################################
+            #          AMAZON LINUX/FEDORA         #
+            ########################################
+            sudo dnf makecache --refresh
+            sudo dnf install nodejs npm -y
+
             cd ~/my-app
             npm ci
             npm run build || true
