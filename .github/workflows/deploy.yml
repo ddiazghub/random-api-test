@@ -18,6 +18,19 @@ jobs:
           # Los siguientes se ejecutan en la instancia EC2
           script: |
             cd ~
+
+            ########################################
+            #             UBUNTU/DEBIAN            #
+            ########################################
+            # sudo apt update
+            # sudo apt install --upgrade git nodejs npm -y
+
+            ########################################
+            #          AMAZON LINUX/FEDORA         #
+            ########################################
+            sudo dnf makecache --refresh
+            sudo dnf install git nodejs npm -y
+
             # Se clona el repo si no existe, de otro modo, se hace un pull
             if [ ! -d "my-app" ]; then
               git clone "https://github.com/${{ github.repository }}" my-app
@@ -25,18 +38,6 @@ jobs:
               cd my-app
               git pull
             fi
-
-            ########################################
-            #             UBUNTU/DEBIAN            #
-            ########################################
-            # sudo apt update
-            # sudo apt install --upgrade nodejs npm -y
-
-            ########################################
-            #          AMAZON LINUX/FEDORA         #
-            ########################################
-            sudo dnf makecache --refresh
-            sudo dnf install nodejs npm -y
 
             cd ~/my-app
             npm ci
