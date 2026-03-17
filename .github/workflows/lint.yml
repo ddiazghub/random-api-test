@@ -1,0 +1,27 @@
+name: Lint
+on: [push]
+
+jobs:
+  lint:
+    runs-on: alpine:3.23
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+
+      - name: Install dependencies
+        run: |
+          npm install
+
+      - name: Check formatting
+        run: |
+          npx biome format
+
+      - name: Lint
+        run: |
+          npm run lint

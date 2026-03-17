@@ -1,0 +1,47 @@
+name: Deploy
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: alpine:3.23
+
+    steps:
+      # Los siguientes pasos se ejecutan en el entorno de github actions
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+
+      - name: Install dependencies
+        run: |
+          npm install
+
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v1 # Esta action establece una conexion con la instancia EC2 y nos permite controlar la consola
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_PRIVATE_KEY }}
+          # Los siguientes se ejecutan en la instancia EC2
+          script: |
+            cd ~
+            # Se clona el repo si no existe, de otro modo, se hace un pull
+            if [ ! -d "my-app" ]; then
+              git clone "https://github.com/${{ github.repository }}" my-app
+            else
+              cd my-app
+              git pull
+            fi
+
+            sudo apt install --upgrade nodejs npm -y
+            cd ~/my-app
+            npm install
+            npm run build || true
+            npm run kill || true
+            npm start
